@@ -1,0 +1,28 @@
+state,state_name,region,country
+AC,Acre,North,Brazil
+AP,Amapa,North,Brazil
+AM,Amazonas,North,Brazil
+PA,Para,North,Brazil
+RO,Rondonia,North,Brazil
+RR,Roraima,North,Brazil
+TO,Tocantins,North,Brazil
+AL,Alagoas,Northeast,Brazil
+BA,Bahia,Northeast,Brazil
+CE,Ceara,Northeast,Brazil
+MA,Maranhao,Northeast,Brazil
+PB,Paraiba,Northeast,Brazil
+PE,Pernambuco,Northeast,Brazil
+PI,Piaui,Northeast,Brazil
+RN,Rio Grande do Norte,Northeast,Brazil
+SE,Sergipe,Northeast,Brazil
+DF,Distrito Federal,Central-West,Brazil
+GO,Goias,Central-West,Brazil
+MT,Mato Grosso,Central-West,Brazil
+MS,Mato Grosso do Sul,Central-West,Brazil
+ES,Espirito Santo,Southeast,Brazil
+MG,Minas Gerais,Southeast,Brazil
+RJ,Rio de Janeiro,Southeast,Brazil
+SP,Sao Paulo,Southeast,Brazil
+PR,Parana,South,Brazil
+RS,Rio Grande do Sul,South,Brazil
+SC,Santa Catarina,South,Brazil
