@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-11-07 23:08:19",
+  "source": "02_data/cleaned/orders_master.csv",
+  "definitions": "BRD v1 section 7; matches SQL-18 in 04_sql/03_analysis.sql",
+  "kpis": {
+    "orders": 99441,
+    "delivered_orders": 96478,
+    "revenue_brl": 13221498.11,
+    "aov_brl": 137.04,
+    "freight_brl": 2198275.64,
+    "freight_ratio_pct": 16.63,
+    "on_time_pct": 93.23,
+    "avg_delivery_days": 12.56,
+    "avg_delay_days": -11.88,
+    "avg_seller_handover_days": 2.85,
+    "avg_review_score": 4.086,
+    "negative_review_pct": 14.69,
+    "customers": 96096,
+    "repeat_customer_pct": 3.12,
+    "cancellation_pct": 1.24
+  },
+  "results": {
+    "q8_mann_whitney": {
+      "n_late": 6381,
+      "n_on_time": 89443,
+      "mean_late": 2.271,
+      "mean_on_time": 4.29,
+      "median_late": 1.0,
+      "median_on_time": 5.0,
+      "mann_whitney_U": 103365145.5,
+      "mann_whitney_p": 0.0,
+      "welch_t": -100.74,
+      "welch_p": 0.0,
+      "effect_size_rank_biserial": 0.638,
+      "reject_H0": true
+    },
+    "q8_chi_square_late_vs_negative": {
+      "chi2": 15054.6,
+      "p_value": 0.0,
+      "dof": 1,
+      "cramers_v": 0.396,
+      "reject_H0": true,
+      "min_expected": 817.2
+    },
+    "q9_conditional_probability": {
+      "p_negative_given_late": 0.624,
+      "p_negative_given_on_time": 0.0927,
+      "relative_risk": 6.73,
+      "p_negative_overall": 0.1281
+    },
+    "q10_regression_r_squared": {
+      "model_1": 0.1379,
+      "model_2_with_handover": 0.2808
+    },
+    "q10_regression_coefficients_model_2": {
+      "intercept": 4.752,
+      "weight_kg": -0.043,
+      "freight_value": 0.027,
+      "inter_state": 6.816,
+      "seller_handover_days": 1.048
+    },
+    "q11_repeat_rate_by_first_order": {
+      "Late": 0.0254,
+      "On time": 0.0313
+    },
+    "cr01_instalments": [
+      {
+        "instalment_band": "1 (single)",
+        "orders": 48270,
+        "aov_brl": 99.94,
+        "cancellation_pct": 1.35
+      },
+      {
+        "instalment_band": "2-3",
+        "orders": 22792,
+        "aov_brl": 114.05,
+        "cancellation_pct": 1.07
+      },
+      {
+        "instalment_band": "4-6",
+        "orders": 16205,
+        "aov_brl": 157.04,
+        "cancellation_pct": 1.13
+      },
+      {
+        "instalment_band": "7+",
+        "orders": 12173,
+        "aov_brl": 301.27,
+        "cancellation_pct": 1.27
+      }
+    ]
+  }
+}

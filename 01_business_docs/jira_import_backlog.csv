@@ -1,0 +1,140 @@
+Issue Id,Parent,Issue Type,Summary,Description,Story Points,Labels,Priority
+1,,Epic,Delivery Performance & Customer Experience Analytics,"Build one trusted view of orders, deliveries, reviews and revenue; quantify the impact of late delivery; deliver dashboards and 3+ sized recommendations.",,capstone,High
+2,1,Story,US-01: To see one headline on-time delivery % with a monthly trend on page 1,"As a COO, I want to see one headline on-time delivery % with a monthly trend on page 1, so that I can tell at a glance whether we are getting better.
+
+Requirement: FR-04
+
+Acceptance criteria:
+* Given the Executive page is open, when I look at the top of the page, then I see the on-time % for delivered orders and a monthly trend line.
+* Given I select a date range with the slicer, when the page refreshes, then the on-time % and trend reflect only that range and match SQL within 1%.",5,sprint2,High
+3,2,Sub-task,Build analysis: SQL-05 on-time rate by month (CASE late/on-time),,,sprint2,Medium
+4,2,Sub-task,Build visual: PBI Executive: On-time % card + monthly trend,,,sprint2,Medium
+5,2,Sub-task,Write and run UAT test TC-04,,,sprint2,Medium
+6,1,Story,"US-02: A one-page summary of on-time rate, review score, repeat rate and the top 3 actions","As a COO, I want a one-page summary of on-time rate, review score, repeat rate and the top 3 actions, so that I can sign off next year's logistics budget.
+
+Requirement: FR-16
+
+Acceptance criteria:
+* Given the analysis is complete, when I open the recommendations memo, then I see 3+ actions, each with evidence, the KPI it moves and a sized impact.",3,sprint2,High
+7,6,Sub-task,Build analysis: All queries,,,sprint2,Medium
+8,6,Sub-task,Build visual: Recommendations memo; final deck,,,sprint2,Medium
+9,6,Sub-task,Write and run UAT test TC-16,,,sprint2,Medium
+10,1,Story,US-03: Monthly orders and revenue (excluding freight) for complete months,"As a Finance Controller, I want monthly orders and revenue (excluding freight) for complete months, so that I can see trends and seasonality without distortion.
+
+Requirement: FR-01
+
+Acceptance criteria:
+* Given the monthly trend visual, when I view it, then revenue excludes freight, counts delivered orders only and incomplete months are excluded.
+* Given a peak month exists, when I hover over it, then I see its orders and revenue values.",3,sprint1,High
+11,10,Sub-task,Build analysis: SQL-01 monthly orders & revenue,,,sprint1,Medium
+12,10,Sub-task,Build visual: PBI Executive: monthly orders/revenue line; Excel quick-look,,,sprint1,Medium
+13,10,Sub-task,Write and run UAT test TC-01,,,sprint1,Medium
+14,1,Story,US-04: Revenue by category and customer state,"As a Finance Controller, I want revenue by category and customer state, so that I know where revenue comes from.
+
+Requirement: FR-02
+
+Acceptance criteria:
+* Given the revenue visuals, when I sort by revenue, then categories show English names and missing ones appear as 'unknown'.",3,sprint1,High
+15,14,Sub-task,Build analysis: SQL-02 revenue by category; SQL-03 revenue by customer state,,,sprint1,Medium
+16,14,Sub-task,Build visual: Tableau: state map + category view; Excel pivot,,,sprint1,Medium
+17,14,Sub-task,Write and run UAT test TC-02,,,sprint1,Medium
+18,1,Story,US-05: AOV by payment type and number of instalments,"As a Finance Controller, I want AOV by payment type and number of instalments, so that I understand the payment mix.
+
+Requirement: FR-03
+
+Acceptance criteria:
+* Given the payment view, when I filter by payment type, then AOV is recalculated as Revenue / Orders without double counting multi-payment orders.",2,sprint1,High
+19,18,Sub-task,Build analysis: SQL-04 AOV by payment type and instalments,,,sprint1,Medium
+20,18,Sub-task,Build visual: Excel quick-look: AOV by payment type (pivot + slicer),,,sprint1,Medium
+21,18,Sub-task,Write and run UAT test TC-03,,,sprint1,Medium
+22,1,Story,"US-06: Average delivery days and late rate by customer state, seller state and category","As a Logistics Manager, I want average delivery days and late rate by customer state, seller state and category, so that I know where delivery is worst.
+
+Requirement: FR-05
+
+Acceptance criteria:
+* Given the Delivery page, when I select a customer state on the map, then all visuals filter to that state and show its delivery days and late rate.",5,sprint1,High
+23,22,Sub-task,Build analysis: SQL-06 delivery by customer state; SQL-07 by seller state and category (3-table join),,,sprint1,Medium
+24,22,Sub-task,Build visual: Tableau: state map; PBI Delivery: state/category bars,,,sprint1,Medium
+25,22,Sub-task,Write and run UAT test TC-05,,,sprint1,Medium
+26,1,Story,"US-07: Delivery time split by stage (approval, seller handover, carrier)","As a Logistics Manager, I want delivery time split by stage (approval, seller handover, carrier), so that I can see whether sellers or carriers lose more time.
+
+Requirement: FR-06
+
+Acceptance criteria:
+* Given delivered orders, when I view the stage breakdown, then I see average days per stage, overall and by state, using delivered orders only.",5,sprint1,High
+27,26,Sub-task,Build analysis: SQL-08 average days per journey stage; view vw_order_delivery,,,sprint1,Medium
+28,26,Sub-task,Build visual: PBI Delivery: stacked bar of stage days by state,,,sprint1,Medium
+29,26,Sub-task,Write and run UAT test TC-06,,,sprint1,Medium
+30,1,Story,US-08: To compare actual vs estimated delivery dates,"As a Logistics Manager, I want to compare actual vs estimated delivery dates, so that I know whether our promised dates are realistic.
+
+Requirement: FR-07
+
+Acceptance criteria:
+* Given delivered orders, when I view the delay distribution, then I see average delay days (negative = early) and the share of orders early, on time and late.",3,sprint2,High
+31,30,Sub-task,Build analysis: SQL-09 delay days distribution (early / on time / late),,,sprint2,Medium
+32,30,Sub-task,Build visual: PBI Delivery: delay histogram,,,sprint2,Medium
+33,30,Sub-task,Write and run UAT test TC-07,,,sprint2,Medium
+34,1,Story,US-09: Proof of whether late orders get lower review scores,"As a Head of Customer Experience, I want proof of whether late orders get lower review scores, so that I can show that delivery drives bad reviews.
+
+Requirement: FR-08
+
+Acceptance criteria:
+* Given order-level review scores, when the hypothesis test is run, then the result states H0, H1, alpha = 0.05, the p-value and what it means in business words.",5,sprint2,High
+35,34,Sub-task,Build analysis: SQL-10 avg review score late vs on-time,,,sprint2,Medium
+36,34,Sub-task,Build visual: Tableau: delay vs review score,,,sprint2,Medium
+37,34,Sub-task,Write and run UAT test TC-08,,,sprint2,Medium
+38,1,Story,"US-10: The negative review rate by delay bucket (on time, 1-3, 4-7, 8+ days late)","As a Head of Customer Experience, I want the negative review rate by delay bucket (on time, 1-3, 4-7, 8+ days late), so that I know how much lateness customers tolerate.
+
+Requirement: FR-09
+
+Acceptance criteria:
+* Given reviews joined to delivered orders, when I view the delay bucket chart, then each bucket shows its negative review rate (score 1 or 2) and order count.",3,sprint2,High
+39,38,Sub-task,Build analysis: SQL-11 negative review rate by delay bucket,,,sprint2,Medium
+40,38,Sub-task,Build visual: PBI Delivery: negative review % by delay bucket,,,sprint2,Medium
+41,38,Sub-task,Write and run UAT test TC-09,,,sprint2,Medium
+42,1,Story,US-11: To know which factors explain delivery time,"As a Logistics Manager, I want to know which factors explain delivery time, so that I can target investment at the real drivers.
+
+Requirement: FR-10
+
+Acceptance criteria:
+* Given weight, freight and same-state flag, when the regression is run, then R-squared and each coefficient are reported and explained, with limits stated.",5,sprint2,Medium
+43,42,Sub-task,Build analysis: SQL-12 same-state vs inter-state delivery days,,,sprint2,Medium
+44,42,Sub-task,Build visual: Python: scatter with regression line,,,sprint2,Medium
+45,42,Sub-task,Write and run UAT test TC-10,,,sprint2,Medium
+46,1,Story,US-12: The repeat customer rate and whether a late first order reduces repeat purchases,"As a COO, I want the repeat customer rate and whether a late first order reduces repeat purchases, so that I can see what late delivery costs in lost customers.
+
+Requirement: FR-11
+
+Acceptance criteria:
+* Given customers counted by customer_unique_id, when I view the retention KPI, then the repeat rate is shown and compared for late vs on-time first orders.",5,sprint1,High
+47,46,Sub-task,Build analysis: SQL-13 repeat customer rate (subquery on customer_unique_id); SQL-14 repeat rate by first-order late/on-time (subquery),,,sprint1,Medium
+48,46,Sub-task,Build visual: PBI Executive: Repeat customer % card,,,sprint1,Medium
+49,46,Sub-task,Write and run UAT test TC-11,,,sprint1,Medium
+50,1,Story,US-13: A seller scorecard and watch list (sellers with 30+ orders),"As a Seller Success Manager, I want a seller scorecard and watch list (sellers with 30+ orders), so that I can manage the sellers that hurt customers most.
+
+Requirement: FR-12
+
+Acceptance criteria:
+* Given the Seller scorecard page, when I right-click a seller and drill through, then I see that seller's late rate, handover days, review score and order count.
+* Given a seller with fewer than 30 orders, when I view the watch list, then that seller does not appear.",5,sprint2,High
+51,50,Sub-task,Build analysis: View vw_seller_scorecard; SQL-15 watch list (GROUP BY seller HAVING COUNT >= 30),,,sprint2,Medium
+52,50,Sub-task,Build visual: PBI Seller scorecard page + drill-through,,,sprint2,Medium
+53,50,Sub-task,Write and run UAT test TC-12,,,sprint2,Medium
+54,1,Story,US-14: Freight ratio by state and category,"As a Finance Controller, I want freight ratio by state and category, so that I know where freight is expensive relative to price.
+
+Requirement: FR-13
+
+Acceptance criteria:
+* Given the cost view, when I sort states by freight ratio, then freight ratio = freight cost / revenue for delivered orders.",3,sprint1,Medium
+55,54,Sub-task,Build analysis: SQL-16 freight ratio by state and category,,,sprint1,Medium
+56,54,Sub-task,Build visual: PBI Delivery / Excel: freight ratio by state,,,sprint1,Medium
+57,54,Sub-task,Write and run UAT test TC-13,,,sprint1,Medium
+58,1,Story,US-15: A documented data model and refresh steps,"As a BI / IT Lead, I want a documented data model and refresh steps, so that I can run the dashboards after handover.
+
+Requirement: NFR-04
+
+Acceptance criteria:
+* Given the handover pack, when I follow the refresh steps on a clean machine, then the dashboards refresh without errors.",2,sprint2,High
+59,58,Sub-task,Build analysis: 01_schema.sql ... 04_views.sql,,,sprint2,Medium
+60,58,Sub-task,Build visual: Refresh steps in README / Confluence,,,sprint2,Medium
+61,58,Sub-task,Write and run UAT test TC-20,,,sprint2,Medium
