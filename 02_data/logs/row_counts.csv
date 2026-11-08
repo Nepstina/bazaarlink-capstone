@@ -1,0 +1,10 @@
+table,rows_before,rows_after,difference
+customers,99441,99441,0
+orders,99441,99441,0
+order_items,112650,112650,0
+payments,103886,103886,0
+reviews,99224,98673,551
+products,32951,32951,0
+sellers,3095,3095,0
+geolocation,1000163,19015,981148
+orders_master,99441,99441,0
