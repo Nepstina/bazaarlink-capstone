@@ -15,6 +15,7 @@ and revenue, quantifies the link between delivery and satisfaction, finds the ro
 | Power BI | `06_dashboards/bazaarlink.pbix` + screenshots in `06_dashboards/screenshots/` |
 | Jira board | https://nepstina1323-1793988703125.atlassian.net/jira/software/projects/SCRUM/boards/1 |
 | Confluence space | https://nepstina1323-1793988703125.atlassian.net/wiki/spaces/BA |
+| Excel quick-look dashboard | https://github.com/Nepstina/bazaarlink-capstone/releases/download/v1.0/finance_quicklook.xlsx (Releases v1.0) |
 | Final deck | `07_presentation/final_deck.pdf` |
 | GitHub repository | https://github.com/Nepstina/bazaarlink-capstone |
 | Miro board (stakeholder map, SWOT, As-Is / To-Be) | https://miro.com/app/board/uXjVEQDl3VI=/ · PDF: `01_business_docs/miro_discovery_and_process_maps.pdf` |
@@ -52,7 +53,7 @@ One KPI definition set is used everywhere: SQL, Python, Excel, Power BI and Tabl
 ```
 01_business_docs/   BRD, discovery pack, RTM (+ UAT, defects, change log), memo, To-Be map, change plan, Confluence drafts
 02_data/            data dictionary + DQ log, logs/, cleaned/  (raw/ not committed; CSV files over 5 MB are zipped: unzip before use)
-03_excel/           finance_quicklook.xlsx
+03_excel/           finance_quicklook.xlsx (23 MB: download from Releases v1.0)
 04_sql/             01_schema.sql, 02_load.sql, 03_analysis.sql, 04_views.sql, run_sql.py
 05_python/          src/ (clean_data.py, loader.py, analysis.py, ...), eda.ipynb, eda.py, kpi_summary.json, figures/
 06_dashboards/      bazaarlink.pbix, bazaarlink_tableau.twbx, tableau_link.md, data/, screenshots/, build guides
