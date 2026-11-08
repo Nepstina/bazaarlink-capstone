@@ -56,7 +56,7 @@ One KPI definition set is used everywhere: SQL, Python, Excel, Power BI and Tabl
 03_excel/           finance_quicklook.xlsx (23 MB: download from Releases v1.0)
 04_sql/             01_schema.sql, 02_load.sql, 03_analysis.sql, 04_views.sql, run_sql.py
 05_python/          src/ (clean_data.py, loader.py, analysis.py, ...), eda.ipynb, eda.py, kpi_summary.json, figures/
-06_dashboards/      bazaarlink.pbix, bazaarlink_tableau.twbx, tableau_link.md, data/, screenshots/, build guides
+06_dashboards/      bazaarlink.pbix, Tableau workbook (.twb + .hyper extract in data/), tableau_link.md, data/, screenshots/, build guides
 07_presentation/    final_deck.pdf, ai_use_log.md, deck_outline.md
 ```
 
@@ -66,7 +66,7 @@ One KPI definition set is used everywhere: SQL, Python, Excel, Power BI and Tabl
 3. `python 05_python/src/clean_data.py` → cleaned CSVs and data quality log.
 4. `python 04_sql/run_sql.py --user root` → MySQL schema, load, views, all queries and reconciliation.
 5. Open `05_python/eda.ipynb` and Run All (or `python 05_python/eda.py`).
-6. Open the `.pbix` / `.twbx` files and refresh.
+6. Open the `.pbix` (Power BI) and `.twb` (Tableau) files and refresh; the Tableau dashboard is also live on Tableau Public.
 
 ## Screenshots
 Power BI: `06_dashboards/screenshots/pbi_executive.png`, `pbi_delivery.png`, `pbi_seller_scorecard.png`, `pbi_model.png`.
@@ -83,4 +83,4 @@ AI assistance was used and is logged in `07_presentation/ai_use_log.md`. AI neve
 * Proved late deliveries are 6.7× more likely to receive 1-2 star reviews (Mann-Whitney, chi-square) and identified seller handover and peak capacity as controllable root causes.
 * Delivered sized recommendations projected to lift on-time delivery from 93.2% to 95.6% and cut ~1,200 negative reviews; documented with BRD, RTM, UAT and change management.
 
-[Author: your name] · [LinkedIn] · [date]
+Author: Nepstina S · Capstone project, Vista Tech · November 2026
