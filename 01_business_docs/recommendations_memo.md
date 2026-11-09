@@ -8,7 +8,7 @@
 * Late delivery is strongly associated with bad reviews: late orders average **2.27 stars** against **4.29** on time (Mann-Whitney p < 0.001). A late order is **6.7×** as likely to get a 1-2 star review (62.4% vs 9.3%).
 * Only **3.1%** of customers order twice, and fewer still after a late first order (2.54% vs 3.13%, significant but small effect).
 
-## Root causes (not symptoms)
+## Root causes 
 1. **Peak-season capacity:** the late rate spikes when order volume spikes; the system has no peak buffer.
 2. **Inter-state shipping:** inter-state orders take **15.1 days** vs **7.9** same-state; holding other factors constant, inter-state adds **6.9 days** (regression).
 3. **Seller handover:** sellers hold orders **2.9 days** on average; each extra handover day adds about **1.05 delivery days** (regression, R² 0.28).
