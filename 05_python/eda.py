@@ -1,13 +1,6 @@
-"""
-eda.py - BazaarLink Day 4 EDA as a plain Python script (same code as eda.ipynb).
 
-Run it in IDLE (open this file, press F5) or from a terminal inside 05_python:
-    python eda.py
-Tables and test results are printed. Each chart opens in a window (plt.show()):
-close the chart window to continue to the next one. Charts are also saved to figures/.
-"""
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))  # so relative paths work from IDLE
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  
 import pandas as pd
 
 def display(obj):
@@ -18,32 +11,6 @@ def display(obj):
 
 # ============================================================================
 # # BazaarLink: Delivery Performance and Customer Satisfaction EDA
-#
-# **Capstone Day 4: Python EDA and statistics**
-#
-# This notebook answers business questions Q1-Q11 from the BRD with descriptive statistics, charts and
-# hypothesis tests. It uses the reusable module in `src/` (`loader.py`, `analysis.py`) and exports the headline
-# KPIs to `kpi_summary.json`.
-#
-# **KPI rules (BRD section 7, identical to SQL `03_analysis.sql`):**
-# * Revenue = sum of item price for delivered orders (freight excluded); AOV = Revenue / delivered orders
-# * Delivery KPIs use delivered orders with a delivered date only
-# * On time = delivered date on or before the estimated date; delay days = delivered minus estimated (positive = late)
-# * Negative review = score 1 or 2; customers counted by `customer_unique_id`
-# * Trends use complete months only: Jan 2017 to Aug 2018
-#
-# | Section | Business question |
-# |---|---|
-# | 1 | Q1 Orders and revenue trend, seasonality |
-# | 2 | Q2 Revenue by category and state |
-# | 3 | Q4-Q6 On-time trend, delivery by state, where time is lost |
-# | 4 | Q7 Descriptive statistics: are estimated dates realistic? |
-# | 5 | Q8 Hypothesis tests: do late orders get lower reviews? |
-# | 6 | Q9 Conditional probability of a negative review |
-# | 7 | Q10 Correlation and regression: what explains delivery time? |
-# | 8 | Q11 Retention: do late first orders reduce repeat purchases? |
-# | 9 | Change request CR-01: instalments, AOV and cancellations |
-# | 10 | Findings and KPI export |
 # ============================================================================
 import os, sys, warnings
 from datetime import datetime
@@ -83,7 +50,6 @@ finally:
 a = OrdersAnalyser(orders)
 print(f"{len(orders):,} orders x {orders.shape[1]} columns")
 
-# Exception handling demo: a file without the required columns raises the custom MissingColumnError
 try:
     loader.read_csv("customers.csv", required_columns=["customer_id", "column_that_does_not_exist"])
 except MissingColumnError as err:
@@ -92,12 +58,6 @@ except MissingColumnError as err:
 kpis = a.kpis()
 display(pd.Series(kpis, name="value").to_frame())
 
-
-# ============================================================================
-# These headline KPIs match SQL query **SQL-18** and the Excel quick-look exactly (Revenue R$ 13,221,498.11,
-# on-time 93.23%, repeat customers 3.12%), which meets the "numbers match within 1%"
-# success criterion.
-# ============================================================================
 
 # ============================================================================
 # ## 1. Q1: How have orders and revenue trended? Is there seasonality or a peak event?
@@ -121,11 +81,7 @@ weekday = (orders.groupby(orders["order_purchase_timestamp"].dt.day_name())["ord
 display(top_days.to_frame()); display(weekday.to_frame("orders"))
 
 
-# ============================================================================
-# **Finding:** orders rose steadily through 2017, peaked in **2017-11** (7,544 orders) and plateaued
-# at about 6,200-7,300 a month in 2018. The single biggest day is **24 Nov 2017 (Black Friday)**, more than double any
-# other day: a promotional event, not normal seasonality. Weekdays (Mon-Tue) are busier than weekends.
-# ============================================================================
+
 
 # ============================================================================
 # ## 2. Q2: Which categories and customer states bring the most revenue?
@@ -181,13 +137,6 @@ save(fig, "05_stage_breakdown.png"); plt.show()
 display(by_state.head(8))
 
 
-# ============================================================================
-# **Finding (Q6):** on average an order spends **0.43 days** in payment approval,
-# **2.85 days** with the seller before handover and **9.33 days** with the carrier.
-# The carrier leg dominates, and it is longest for remote North/Northeast states (RR, AP, AM above 23 days).
-# Seller handover is smaller but is the stage BazaarLink can control directly through seller policy.
-# By region, the late rate is Northeast 12.7%, North 8.6%, Central-West 6.5%, Southeast 6.1%, South 5.9%.
-# ============================================================================
 
 # ============================================================================
 # ## 4. Q7: Descriptive statistics. Are estimated delivery dates realistic?
@@ -210,24 +159,10 @@ lo, hi = a.iqr_bounds(m["delivery_days"])
 print(f"IQR fences for delivery days: {lo:.1f} to {hi:.1f}; outliers above: {(m['delivery_days'] > hi).sum():,} orders (kept, see DQ log)")
 
 
-# ============================================================================
-# **Finding (Q7):** shoppers are promised **23.7 days** on average but receive orders in
-# **12.6 days**. The median order arrives **12 days early** and
-# **74%** arrive 8 or more days early. The estimates are not realistic: they are padded so much that the on-time
-# rate looks good, while the long promise itself may discourage purchases. Delivery days are right-skewed
-# (skew 3.8): the mean is pulled up by a long tail of very slow deliveries, so medians are reported alongside means.
-# ============================================================================
+
 
 # ============================================================================
 # ## 5. Q8: Do late orders get significantly lower review scores?
-#
-# **Test 1: Mann-Whitney U (main test)**
-# * **H0:** review scores of late orders and on-time orders come from the same distribution.
-# * **H1:** late orders have **lower** review scores (one-sided).
-# * **alpha = 0.05**
-# * **Why this test:** review score is an ordinal 1-5 scale and is heavily skewed (most scores are 5), so it is not normally
-#   distributed. Mann-Whitney compares ranks and does not assume normality. A Welch t-test (unequal variances) is run as a
-#   robustness check, which is valid here because the samples are large.
 # ============================================================================
 res = a.test_review_late_vs_on_time()
 display(pd.Series(res).to_frame("value"))
@@ -246,30 +181,11 @@ axes[1].set_ylabel("% of reviews"); axes[1].set_xlabel("Review score"); axes[1].
 fig.tight_layout(); save(fig, "07_review_late_vs_on_time.png"); plt.show()
 
 
-# ============================================================================
-# **Result:** the average review is **2.271** for late orders vs **4.29** for on-time orders.
-# The Mann-Whitney p-value is below 0.001 (and the Welch t-test agrees, t = -100.74), so we **reject H0**.
-#
-# **In business words:** if late delivery made no difference to reviews, a gap this large would almost never happen by chance.
-# Late delivery is strongly associated with worse reviews. The effect is large, not just significant (rank-biserial
-# effect size 0.638): it is not a statistical technicality caused by the big sample.
-#
-# **Test 2: Chi-square test of independence (late vs negative review)**
-# * **H0:** whether an order is late and whether its review is negative (1-2 stars) are independent.
-# * **H1:** they are associated. alpha = 0.05.
-# * **Why this test:** both variables are categorical (yes/no), and every expected cell count is far above 5.
-# ============================================================================
 chi = a.chi_square("is_late", "is_negative")
 display(chi["table"].rename(index={0: "On time", 1: "Late"}, columns={0: "Not negative", 1: "Negative"}))
 print({k: v for k, v in chi.items() if k != "table"})
 
 
-# ============================================================================
-# **Result:** chi-square = 15,054.6, p < 0.001: **reject H0**. Late delivery and
-# negative reviews are not independent; Cramér's V = 0.396 shows a moderate-to-strong
-# association. Note this shows association, not proof that lateness alone causes the bad review (some late orders also
-# had damaged or wrong items).
-# ============================================================================
 
 # ============================================================================
 # ## 6. Q9: What is the probability of a negative review given a late delivery vs an on-time one?
@@ -290,18 +206,10 @@ save(fig, "08_negative_review_by_delay_bucket.png"); plt.show()
 display(bucket)
 
 
-# ============================================================================
-# **Finding (Q9):** P(negative | late) = **62.4%** vs P(negative | on time) =
-# **9.3%**: a late order is **6.73x** as likely to get a 1-2 star review.
-# The risk climbs with every bucket: 32% at 1-3 days late, 68% at 4-7 days and
-# 79% at 8+ days. This answers the Head of CX: there is no "safe" amount of lateness.
-# ============================================================================
+
 
 # ============================================================================
 # ## 7. Q10: Which factors explain delivery time?
-#
-# Candidate drivers: product weight, freight value, inter-state shipping (seller and customer in different states),
-# and seller handover days. First a correlation matrix, then ordinary least-squares regression (NumPy).
 # ============================================================================
 corr_cols = ["delivery_days", "weight_kg", "freight_value", "inter_state", "seller_handover_days",
              "estimated_days", "item_revenue", "review_score"]
@@ -331,27 +239,7 @@ save(fig, "10_handover_vs_delivery_scatter.png"); plt.show()
 
 
 # ============================================================================
-# **Interpretation:**
-# * **Model 1** (weight, freight, inter-state) explains **14%** of the variation in delivery days (R² = 0.1379).
-#   Holding the others constant, an **inter-state** order takes **6.9 days longer** than a
-#   same-state order. Each extra kg adds only 0.07 days and each extra R$ 1 of freight
-#   0.024 days: statistically significant (huge sample) but practically small.
-# * **Model 2** adds seller handover days and R² doubles to **28%**. Each extra handover day adds
-#   **1.05 delivery days**, almost one-for-one.
-#
-# **Limits (state these when presenting):**
-# * R² of 0.28 means most variation is unexplained: distance, carrier, region and season are missing.
-# * This is association, not causation: heavier items are also more often inter-state, so effects overlap
-#   (weight even changes sign once handover is added).
-# * Delivery days are right-skewed, so residuals are not normal; coefficients are fine for direction and size, but
-#   p-values should be read with care.
-# ============================================================================
-
-# ============================================================================
 # ## 8. Q11: Do customers whose first order was late return less often?
-#
-# * **H0:** whether a customer's first order was late is independent of whether they ever order again.
-# * **H1:** they are associated. Chi-square test, alpha = 0.05.
 # ============================================================================
 first, ret = a.retention_by_first_order()
 print(f"Repeat customer rate overall: {kpis['repeat_customer_pct']}% of {kpis['customers']:,} customers "
@@ -368,21 +256,9 @@ ax.set_title("Customers with a late first order come back less often", loc="left
 save(fig, "11_retention_first_order.png"); plt.show()
 
 
-# ============================================================================
-# **Finding (Q11):** only **3.12%** of 96,096 customers ever order twice. Customers whose
-# first order was late return at **2.54%** vs **3.13%**
-# when it was on time: about 19% fewer returners.
-# The chi-square p-value is 0.010 (< 0.05), so the difference is statistically significant, but the
-# effect is small (Cramér's V = 0.008). Late delivery hurts retention, but low repeat purchase is a
-# wider problem than delivery alone.
-# ============================================================================
 
 # ============================================================================
 # ## 9. Change request CR-01 (Finance): instalments, AOV and cancellations
-#
-# **Request (Day 4):** "Do orders paid in more instalments have a higher AOV or more cancellations?"
-# Logged as CR-01 in the change log; impact: one extra analysis section, one Excel chart (already in the quick-look) and
-# one SQL query (SQL-04b). No change to KPI definitions. Sponsor approval recorded in the Confluence decision log.
 # ============================================================================
 inst, rho = a.instalment_analysis()
 display(inst); print("Spearman correlation, instalments vs order value:", rho)
@@ -395,48 +271,10 @@ ax.set_title("AOV triples with 7+ instalments; cancellations stay flat (~1.1-1.4
 save(fig, "12_instalments_aov_cancellation.png"); plt.show()
 
 
-# ============================================================================
-# **Finding (CR-01):** AOV rises from **R$ 100** (single payment) to
-# **R$ 301** (7+ instalments); Spearman rho = 0.375 (p < 0.001). Cancellation rates
-# stay between 1.07% and 1.35% with no upward trend. Instalments
-# enable bigger baskets without more cancellations. Caveat: causation probably runs the other way (expensive items are
-# paid in instalments), so this supports keeping interest-free instalments, not forcing them.
-# ============================================================================
 
-# ============================================================================
-# ## 10. Key findings
-#
-# 1. **Late delivery is strongly associated with bad reviews.** Late orders average 2.271 stars vs 4.29
-#    (Mann-Whitney p < 0.001, large effect). A late order is 6.73x as likely to get a 1-2 star review.
-# 2. **There is no safe lateness.** P(negative) rises from 9% on time to 32% at 1-3 days,
-#    68% at 4-7 days and 79% at 8+ days late.
-# 3. **On-time % is high overall (93.23%) but collapses at volume peaks:** 2018-03 fell to
-#    81.0%, and monthly review scores track on-time % closely.
-# 4. **Estimated dates are heavily padded:** promised 23.7 days vs actual 12.6;
-#    74% arrive 8+ days early. There is room to promise faster dates without hurting on-time %.
-# 5. **Inter-state shipping is the biggest structural delay:** +6.9 days vs same-state orders
-#    (same-state average 7.9 days vs inter-state 15.1).
-# 6. **Seller handover is the controllable lever:** each extra handover day adds ~1.0
-#    delivery day. A what-if cap of 3 handover days would lift on-time from 93.23% to 94.6%
-#    (+1.3 points).
-# 7. **The carrier leg is the largest stage** (9.33 of 12.56 days), longest for remote
-#    North/Northeast states.
-# 8. **Retention is very low (3.12%)** and lower still after a late first order
-#    (2.54% vs 3.13%, significant but small effect).
-# 9. **Black Friday (2017-11) is the single biggest event**: plan carrier and seller capacity ahead of it.
-# 10. **CR-01:** more instalments mean higher AOV (R$ 301 at 7+) with no rise in cancellations.
-#
-# **Limits:** observational data (association, not causation); 2016 and Sep-Oct 2018 excluded from trends; regression
-# explains 28% of delivery time; review text not analysed.
-# ============================================================================
 
 # ============================================================================
 # ## 11. Recommendation sizing (what-if scenarios)
-#
-# Each recommendation in the memo is sized here, so every number traces to this cell. Method: change one driver, keep
-# everything else the same, recount late orders. Negative reviews avoided = late orders fixed ×
-# (P(negative | late) − P(negative | on time)). These are estimates from observational data, not guarantees, and the
-# scenarios overlap, so they are not additive.
 # ============================================================================
 # --- sizing ---
 d = a.measurable().copy()
@@ -475,7 +313,7 @@ display(sizing.round(2))
 print(f"Peak months: {len(peak):,} orders, on-time {100 * (1 - peak['is_late'].mean()):.1f}%")
 print(f"Watch-list orders: {len(dw):,} ({100 * len(dw) / len(d):.1f}% of volume), late {100 * dw['is_late'].mean():.1f}% vs {100 * rest_rate:.1f}% for the rest")
 
-# R4 check: a blanket cut of the estimate by N days (why we recommend a pilot, not a blanket cut)
+# R4 check: a blanket cut of the estimate by N days 
 cut = pd.DataFrame({"days_cut": [3, 5, 7],
                     "on_time_%": [round(100 * ((d["delay_days"] + n) <= 0).mean(), 1) for n in (3, 5, 7)]})
 display(cut)
