@@ -1,17 +1,5 @@
 ﻿-- =====================================================================
 -- BazaarLink capstone | 02_load.sql
--- Loads the CLEANED CSVs (02_data/cleaned/, made by clean_data.py).
---
--- C:/Users/AWAN.Admin/Desktop/E-commerce capstone project/Script/02_data/cleaned is replaced by run_sql.py with the full path to 02_data/cleaned.
--- To run by hand in MySQL Workbench: replace C:/Users/AWAN.Admin/Desktop/E-commerce capstone project/Script/02_data/cleaned with that path using
--- forward slashes (e.g. C:/projects/bazaarlink-capstone/02_data/cleaned),
--- and enable local_infile (SET GLOBAL local_infile = 1; plus
--- OPT_LOCAL_INFILE=1 in the Workbench connection's Advanced settings).
---
--- Why this loader: review comments contain commas and quotes, so fields are
--- read with OPTIONALLY ENCLOSED BY '"'. Blank values become NULL with NULLIF.
--- Extra derived columns at the end of each cleaned CSV are ignored.
--- Load order follows the foreign keys: parents first.
 -- =====================================================================
 USE bazaarlink;
 
@@ -48,8 +36,8 @@ INTO TABLE orders CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
 LINES TERMINATED BY '\n' IGNORE 1 LINES
 (order_id, customer_id, order_status, @purchase, @approved, @carrier, @delivered, @estimated)
-SET order_purchase_timestamp      = @purchase,
-    order_approved_at             = NULLIF(@approved, ''),
+SET order_purchase_timestamp = @purchase,
+    order_approved_at = NULLIF(@approved, ''),
     order_delivered_carrier_date  = NULLIF(@carrier, ''),
     order_delivered_customer_date = NULLIF(@delivered, ''),
     order_estimated_delivery_date = @estimated;
@@ -73,15 +61,15 @@ FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
 LINES TERMINATED BY '\n' IGNORE 1 LINES
 (review_id, order_id, review_score, review_comment_title, review_comment_message,
  @created, @answered)
-SET review_creation_date    = NULLIF(@created, ''),
+SET review_creation_date = NULLIF(@created, ''),
     review_answer_timestamp = NULLIF(@answered, '');
 
 -- Row-count check after loading (compare with 02_data/logs/row_counts.csv)
 SELECT 'customers' AS table_name, COUNT(*) AS row_count FROM customers
-UNION ALL SELECT 'sellers',     COUNT(*) FROM sellers
-UNION ALL SELECT 'products',    COUNT(*) FROM products
-UNION ALL SELECT 'orders',      COUNT(*) FROM orders
+UNION ALL SELECT 'sellers', COUNT(*) FROM sellers
+UNION ALL SELECT 'products', COUNT(*) FROM products
+UNION ALL SELECT 'orders', COUNT(*) FROM orders
 UNION ALL SELECT 'order_items', COUNT(*) FROM order_items
-UNION ALL SELECT 'payments',    COUNT(*) FROM payments
-UNION ALL SELECT 'reviews',     COUNT(*) FROM reviews;
+UNION ALL SELECT 'payments', COUNT(*) FROM payments
+UNION ALL SELECT 'reviews', COUNT(*) FROM reviews;
 
