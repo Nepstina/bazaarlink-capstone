@@ -1,4 +1,4 @@
-﻿# BazaarLink: Delivering on the Promise
+# BazaarLink: Delivering on the Promise
 ### Delivery performance and customer satisfaction analytics (capstone project)
 
 BazaarLink, an online marketplace for small sellers in Brazil, did not know how much late delivery was costing it in
@@ -16,7 +16,7 @@ and revenue, quantifies the link between delivery and satisfaction, finds the ro
 | Jira board | https://nepstina1323-1793988703125.atlassian.net/jira/software/projects/SCRUM/boards/1 |
 | Confluence space | https://nepstina1323-1793988703125.atlassian.net/wiki/spaces/BA |
 | Excel quick-look dashboard | https://github.com/Nepstina/bazaarlink-capstone/releases/download/v1.0/finance_quicklook.xlsx (Releases v1.0) |
-| Final deck | `07_presentation/final_deck.pdf` |
+| Final deck | `Presentation/final_deck.pdf` |
 | GitHub repository | https://github.com/Nepstina/bazaarlink-capstone |
 | Miro board (stakeholder map, SWOT, As-Is / To-Be) | https://miro.com/app/board/uXjVEQDl3VI=/ · PDF: `01_business_docs/miro_discovery_and_process_maps.pdf` |
 
@@ -56,8 +56,8 @@ One KPI definition set is used everywhere: SQL, Python, Excel, Power BI and Tabl
 03_excel/           finance_quicklook.xlsx (23 MB: download from Releases v1.0)
 04_sql/             01_schema.sql, 02_load.sql, 03_analysis.sql, 04_views.sql, run_sql.py
 05_python/          src/ (clean_data.py, loader.py, analysis.py, ...), eda.ipynb, eda.py, kpi_summary.json, figures/
-06_dashboards/      bazaarlink.pbix, Tableau workbook (.twb + .hyper extract in data/), tableau_link.md, data/, screenshots/, build guides
-07_presentation/    final_deck.pdf, ai_use_log.md, deck_outline.md
+06_dashboards/      bazaarlink.pbix, Tableau workbook (.twb + .hyper extract in data/), tableau_link.md, data/, screenshots/
+Presentation/       final_deck.pdf, ai_use_log.md
 ```
 
 ## How to reproduce
@@ -76,7 +76,7 @@ Tableau: `06_dashboards/screenshots/tableau_dashboard.png`. Excel: `06_dashboard
 Observational data (associations, not proven causes); 2016-2018 only; no distance or carrier identity; regression explains 28% of delivery time.
 
 ## AI use
-AI assistance was used and is logged in `07_presentation/ai_use_log.md`. AI never supplied numbers: every number comes from a SQL query, a notebook cell or a DAX measure.
+AI assistance was used and is logged in `Presentation/ai_use_log.md`. AI never supplied numbers: every number comes from a SQL query, a notebook cell or a DAX measure.
 
 ## Resume bullets
 * Built an end-to-end delivery analytics solution on 99k e-commerce orders (Excel, MySQL, Python, Power BI, Tableau) with one KPI definition set reconciled to 0% difference across all tools.
